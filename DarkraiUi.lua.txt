@@ -1,75 +1,71 @@
-local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
-local Window = Library.CreateLib("Golf Hub | Blox fruit", "DarkTheme")
-local Tab = Window:NewTab("Main")
-local Section = Tab:NewSection("Auto Equip")
+local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
+local Window = OrionLib:MakeWindow({Name = "Glof Hub l Blade ball", HidePremium = false, SaveConfig = true, ConfigFolder = "OrionTest"})
 
-local Weaponlist = {}
-local Weapon = nil
+OrionLib:MakeNotification({
+	Name = "Title!",
+	Content = "Notification content... what will it say??",
+	Image = "rbxassetid://4483345998",
+	Time = 5
+})
 
-for i,v in pairs(game:GetService("Players").LocalPlayer.Backpack:GetChildren()) do
-    table.insert(Weaponlist,v.Name)
-end
 
-Section:NewDropdown("select weapon", " ", Weaponlist, function(currentOption)
-    Weapon = currentOption
-end)
 
-Section:NewToggle("Auto Equip", " ", function(a)
-AutoEquiped = a
-end)
+local Tab = Window:MakeTab({
+	Name = "Main",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
 
+local Section = Tab:AddSection({
+	Name = "farm"
+})
+
+Tab:AddToggle({
+	Name = "FastAttack",
+	Default = false,
+	Callback = function(Value)
+       _G.FastAttack = Value
+local CameraShaker = require(game.ReplicatedStorage.Util.CameraShaker)
+CombatFrameworkR = require(game:GetService("Players").LocalPlayer.PlayerScripts.CombatFramework)
+y = debug.getupvalues(CombatFrameworkR)[2]
 spawn(function()
-while wait() do
-if AutoEquiped then
-pcall(function()
-game.Players.LocalPlayer.Character.Humanoid:EquipTool(game:GetService("Players").LocalPlayer.Backpack:FindFirstChild(Weapon))
-end)
-end
-end
-end)
-Section:NewToggle("Fastattack", "ToggleInfo", function(state)
-_G.Fastattack = state
-    local CombatFramework = require(game:GetService("Players").LocalPlayer.PlayerScripts.CombatFramework)
-local Camera = require(game.ReplicatedStorage.Util.CameraShaker)
-Camera:Stop()
-coroutine.wrap(function()
-    game:GetService("RunService").Stepped:Connect(function()
-        if getupvalues(CombatFramework)[2]['activeController'].timeToNextAttack then
-            getupvalues(CombatFramework)[2]['activeController'].timeToNextAttack = 0
-            getupvalues(CombatFramework)[2]['activeController'].hitboxMagnitude = 50
-            getupvalues(CombatFramework)[2]['activeController']:attack()
+    game:GetService("RunService").RenderStepped:Connect(function()
+        if _G.FastAttack then
+            if typeof(y) == "table" then
+                pcall(function()
+                    CameraShaker:Stop()
+                    y.activeController.timeToNextAttack = (math.huge^math.huge^math.huge)
+                    y.activeController.timeToNextAttack = 0
+                    y.activeController.hitboxMagnitude = 60
+                    y.activeController.active = false
+                    y.activeController.timeToNextBlock = 0
+                    y.activeController.focusStart = 1655503339.0980349
+                    y.activeController.increment = 1
+                    y.activeController.blocking = false
+                    y.activeController.attacking = false
+                    y.activeController.humanoid.AutoRotate = true
+                end)
+            end
         end
     end)
-end)()
 end)
-Section:NewToggle("bringmob", "Click to use bringmob", function(state)
-_G.bringmob = state
-while _G.bringmob do wait()
-    pcall(function()
-for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
-for x,y in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
-if v.Name == "Militaray Soldier [Lv.300]" then
-    if y.Name == "Militaray Soldier [Lv.300]" then
-   v.HumanoidRootPart.CFrame = y.HumanoidRootPart.CFrame
-   v.HumanoidRootPart.Size = Vector3.new(60,60,60)
-   y.HumanoidRootPart.Size = Vector3.new(60,60,60)
-   v.HumanoidRootPart.Transparency = 1
-   v.HumanoidRootPart.CanCollide = false
-   y.HumanoidRootPart.CanCollide = false
-   v.Humanoid.WalkSpeed = 0
-   y.Humanoid.WalkSpeed = 0
-   v.Humanoid.JumpPower = 0
-   y.Humanoid.JumpPower = 0
-   if sethiddenproperty then
-     sethiddenproperty(game.Players.LocalPlayer, "SimulationRadius", math.huge)
-end
-end
-end
-end
-end
+     end})
+     
+Tab:AddToggle({
+   Name = "Auto Haki",
+   Default = false,
+   Callback = function(Value)
+   _G.AUTOHAKI = Value
+spawn(function()
+    while wait(.1) do
+        if _G.AUTOHAKI then 
+            if not game.Players.LocalPlayer.Character:FindFirstChild("HasBuso") then
+                local args = {
+                    [1] = "Buso"
+                }
+ game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
+            end
+        end
+    end
 end)
-end
-end)
-Section:NewKeybind("KeybindText", "KeybindInfo", Enum.KeyCode.RightControl, function()
-	Library:ToggleUI()
-end)
+     end)}
