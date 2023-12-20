@@ -393,7 +393,7 @@ function Library.xova()
 	Logo.BackgroundTransparency = 1.000
 	Logo.Position = UDim2.new(0.0439999998, 0, 0.5, 0)
 	Logo.Size = UDim2.new(0, 35, 0, 35)
-	Logo.Image = ""
+	Logo.Image = "rbxassetid://15658994113"
 
 	Title.Name = "Title"
 	Title.Parent = Topbar
@@ -402,7 +402,7 @@ function Library.xova()
 	Title.Position = UDim2.new(0.0882352963, 0, 0, 0)
 	Title.Size = UDim2.new(0, 483, 0, 31)
 	Title.Font = Enum.Font.GothamMedium
-	Title.Text = "Golf Hub | Blox fruit"
+	Title.Text = "GOLF Hub | Blox fruit"
 	Title.TextColor3 = Color3.fromRGB(255, 255, 255)
 	Title.TextSize = 14.000
 	Title.TextWrapped = true
